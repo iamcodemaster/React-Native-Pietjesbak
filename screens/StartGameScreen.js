@@ -48,6 +48,11 @@ export default class StartGameScreen extends Component {
                 playerTwoRollButton = false;
             } else {
                 players.playerOne.startDice > players.playerTwo.startDice ? players.playerOne.turn = true : players.playerTwo.turn = true;
+                if(players.playerOne.turn == true) {
+                    players.playerOne.disabled = false;
+                } else if(players.playerTwo.turn == true) {
+                    players.playerTwo.disabled = false;
+                }
                 startGameButton = false;
             }
         }

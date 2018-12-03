@@ -6,20 +6,20 @@ let players = {
         turn: false,
         score: 0,
         firstDice: {
-            keepTheDice: false,
+            throwTheDice: true,
             number: 0
         },
         secondDice: {
-            keepTheDice: false,
+            throwTheDice: true,
             number: 0
         },
         thirdDice: {
-            keepTheDice: false,
+            throwTheDice: true,
             number: 0
         },
         pinstripes: 9,
-        throws: 3,
-        disabled: false
+        throws: 0,
+        disabled: true
     },
     playerTwo: {
         id: 2,
@@ -28,20 +28,20 @@ let players = {
         turn: false,
         score: 0,
         firstDice: {
-            keepTheDice: false,
+            throwTheDice: true,
             number: 0
         },
         secondDice: {
-            keepTheDice: false,
+            throwTheDice: true,
             number: 0
         },
         thirdDice: {
-            keepTheDice: false,
+            throwTheDice: true,
             number: 0
         },
         pinstripes: 9,
-        throws: 3,
-        disabled: false
+        throws: 0,
+        disabled: true
     }
   };
 
