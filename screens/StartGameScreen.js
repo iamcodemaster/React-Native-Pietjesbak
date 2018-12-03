@@ -14,7 +14,7 @@ class Player extends Component {
     }
 }
 
-export default class GameScreen extends Component {
+export default class StartGameScreen extends Component {
     static navigationOptions = {
         headerTitle: 'Roll the dices to begin',
     };
@@ -47,6 +47,7 @@ export default class GameScreen extends Component {
                 playerOneRollButton = false;
                 playerTwoRollButton = false;
             } else {
+                players.playerOne.startDice > players.playerTwo.startDice ? players.playerOne.turn = true : players.playerTwo.turn = true;
                 startGameButton = false;
             }
         }

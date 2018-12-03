@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { FlatList, ScrollView, StyleSheet, Text, View, Button } from 'react-native';
 import { createSwitchNavigator, createStackNavigator } from 'react-navigation';
 import AddPlayerNamesScreen from './screens/AddPlayerNamesScreen';
 import StartGameScreen from './screens/StartGameScreen';
@@ -18,7 +17,7 @@ const AppNavigator = createSwitchNavigator({
   Game: GameScreen
 });
 
-export default class App extends React.Component {
+export default class App extends Component {
   state = {
     players
   };

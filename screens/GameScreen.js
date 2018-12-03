@@ -15,7 +15,11 @@ class Player extends Component {
   }
 }
 
-class StartGameScreen extends Component {
+export default class GameScreen extends Component {
+    static navigationOptions = {
+        headerTitle: 'Pietjesbak',
+    };
+
     constructor(props) {
         super(props);
 
@@ -329,5 +333,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default StartGameScreen;
   

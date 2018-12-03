@@ -3,6 +3,7 @@ let players = {
         id: 1,
         name: 'Player 1',
         startDice: 0,
+        turn: false,
         score: 0,
         firstDice: {
             keepTheDice: false,
@@ -24,6 +25,7 @@ let players = {
         id: 2,
         name: 'Player 2',
         startDice: 0,
+        turn: false,
         score: 0,
         firstDice: {
             keepTheDice: false,
