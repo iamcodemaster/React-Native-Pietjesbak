@@ -22,13 +22,13 @@ export default class AddPlayerNamesComponent extends Component {
                     style={styles.input}
                     value={this.state.playerOneName}
                     onChangeText={this.getHandler('playerOneName')}
-                    placeholder="Name player one"
+                    placeholder="Name player 1"
                 />
                 <TextInput
                     style={styles.input}
                     value={this.state.playerTwoName}
                     onChangeText={this.getHandler('playerTwoName')}
-                    placeholder="Name Player two"
+                    placeholder="Name player 2"
                 />
                 <Button
                     title="Start the game"

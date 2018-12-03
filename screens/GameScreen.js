@@ -261,7 +261,7 @@ class StartGameScreen extends Component {
     render() {
       return (
         <ScrollView>
-            <View>
+            <View style={styles.container}>
                 <Player name={this.state.players.playerOne.name} score={this.state.players.playerOne.score} pinstripes={this.state.players.playerOne.pinstripes} />
                 <View style={styles.dices}>
                     <Dice number={this.state.players.playerOne.firstDice.number} />
@@ -286,7 +286,7 @@ class StartGameScreen extends Component {
                 <Button title="Roll" onPress={() => {this.rollTheDice("playerOne")}} />
             </View>
 
-            <View>
+            <View style={styles.container}>
                 <Player name={this.state.players.playerTwo.name} score={this.state.players.playerTwo.score} pinstripes={this.state.players.playerTwo.pinstripes} />
                 <View style={styles.dices}>
                     <Dice number={this.state.players.playerTwo.firstDice.number} />

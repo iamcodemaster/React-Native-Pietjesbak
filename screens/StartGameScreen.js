@@ -14,13 +14,18 @@ class Player extends Component {
     }
 }
 
-class GameScreen extends Component {
+export default class GameScreen extends Component {
+    static navigationOptions = {
+        headerTitle: 'Roll the dices to begin',
+    };
+
     constructor() {
         super();
         
         this.state = {
             playerOneRollButton: false,
             playerTwoRollButton: false,
+            startGameButton: true,
             players
         };
     }
@@ -28,6 +33,7 @@ class GameScreen extends Component {
     rollTheDice(player) {
         let playerOneRollButton = this.state.playerOneRollButton;
         let playerTwoRollButton = this.state.playerTwoRollButton;
+        let startGameButton = this.state.startGameButton;
         if(player == 1) {
             players.playerOne.startDice = Math.floor(Math.random() * 6) + 1;
             playerOneRollButton = true;
@@ -40,11 +46,14 @@ class GameScreen extends Component {
             if(players.playerOne.startDice == players.playerTwo.startDice) {
                 playerOneRollButton = false;
                 playerTwoRollButton = false;
+            } else {
+                startGameButton = false;
             }
         }
         this.setState({
             playerOneRollButton: playerOneRollButton,
             playerTwoRollButton: playerTwoRollButton,
+            startGameButton: startGameButton,
             players: players
         });
     }
@@ -53,16 +62,26 @@ class GameScreen extends Component {
         const {navigate} = this.props.navigation;
         return (
             <View style={styles.container}>
-                <Player name={this.state.players.playerOne.name} pinstripes={this.state.players.playerOne.pinstripes} />
+                <Player 
+                    name={this.state.players.playerOne.name} 
+                    pinstripes={this.state.players.playerOne.pinstripes} />
                 <Text>{this.state.players.playerOne.startDice}</Text>
-                <Button title="Roll the dice" disabled={this.state.playerOneRollButton} onPress={() => {this.rollTheDice(this.state.players.playerOne.id)}} />
-                <Player name={this.state.players.playerTwo.name} pinstripes={this.state.players.playerTwo.pinstripes} />
-                <Text>{this.state.players.playerTwo.startDice}</Text>
-                <Button title="Roll the dice" disabled={this.state.playerTwoRollButton} onPress={() => {this.rollTheDice(this.state.players.playerTwo.id)}} />
                 <Button 
-                    title="Start Game" 
-                    onPress={() => navigate('Game')}
-                />
+                    title="Roll the dice" 
+                    disabled={this.state.playerOneRollButton} 
+                    onPress={() => {this.rollTheDice(this.state.players.playerOne.id)}} />
+                <Player 
+                    name={this.state.players.playerTwo.name} 
+                    pinstripes={this.state.players.playerTwo.pinstripes} />
+                <Text>{this.state.players.playerTwo.startDice}</Text>
+                <Button 
+                    title="Roll the dice" 
+                    disabled={this.state.playerTwoRollButton} 
+                    onPress={() => {this.rollTheDice(this.state.players.playerTwo.id)}} />
+                <Button 
+                    title="Start Game"
+                    disabled={this.state.startGameButton} 
+                    onPress={() => navigate('Game')} />
             </View>
         );
     }
@@ -76,5 +95,3 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
 });
-
-export default GameScreen;
