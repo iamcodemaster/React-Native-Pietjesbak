@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Button, KeyboardAvoidingView, TextInput } from 'react-native';
+import { StyleSheet, Text, View, KeyboardAvoidingView, TextInput, TouchableOpacity } from 'react-native';
+import { Button, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
 
 export default class AddPlayerNamesComponent extends Component {
     state = {
@@ -18,32 +19,34 @@ export default class AddPlayerNamesComponent extends Component {
     render() {
         return (
             <KeyboardAvoidingView behavior="padding" style={styles.container}>
-                <TextInput
-                    style={styles.input}
+                <FormLabel>Player 1</FormLabel>
+                <FormInput 
                     value={this.state.playerOneName}
                     onChangeText={this.getHandler('playerOneName')}
-                    placeholder="Name player 1"
-                />
-                <TextInput
-                    style={styles.input}
+                    placeholder="Name Player 1" />
+                <FormLabel>Player 2</FormLabel>
+                <FormInput 
                     value={this.state.playerTwoName}
                     onChangeText={this.getHandler('playerTwoName')}
-                    placeholder="Name player 2"
-                />
-                <Button
+                    placeholder="Name Player 2" />
+                <Button 
+                    buttonStyle={styles.button}
+                    backgroundColor="#2096F3"
                     title="Start the game"
-                    onPress={this.handleSubmit}
-                />
+                    onPress={this.handleSubmit} />
             </KeyboardAvoidingView>
         );
     }
 }
 
 const styles = StyleSheet.create({
+    button: {
+        marginTop: 20
+    },
     container: {
         flex: 1,
         backgroundColor: '#fff',
-        alignItems: 'center',
+        // alignItems: 'center',
         justifyContent: 'center',
     },
 });
