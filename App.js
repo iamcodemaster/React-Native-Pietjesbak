@@ -5,17 +5,18 @@ import StartGameScreen from './screens/StartGameScreen';
 import GameScreen from './screens/GameScreen';
 import players from './players';
 
-const MainStack = createStackNavigator(
+const AppNavigator = createStackNavigator(
   {
     AddPlayerNames: AddPlayerNamesScreen,
-    StartGame: StartGameScreen
+    StartGame: StartGameScreen,
+    Game: GameScreen
   }
 );
 
-const AppNavigator = createSwitchNavigator({
-  Main: MainStack,
-  Game: GameScreen
-});
+// const AppNavigator = createSwitchNavigator({
+//   Main: MainStack,
+//   Game: GameScreen
+// });
 
 export default class App extends Component {
   state = {

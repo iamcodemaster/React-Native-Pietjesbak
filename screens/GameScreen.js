@@ -1,19 +1,8 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Button, Switch, ScrollView } from 'react-native';
 import Dice from '../components/DiceComponent';
+import Player from '../components/PlayerComponent';
 import players from './../players';
-
-class Player extends Component {
-  render() {
-    return (
-        <View>
-          <Text>Name: {this.props.name}</Text>
-          <Text>Score: {this.props.score}</Text>
-          <Text>Pinstripes: {this.props.pinstripes}</Text>
-        </View>
-    );
-  }
-}
 
 export default class GameScreen extends Component {
     static navigationOptions = {
@@ -494,10 +483,27 @@ export default class GameScreen extends Component {
   }
 
 const styles = StyleSheet.create({
+    ImportantTextElements: {
+        fontWeight: 'bold',
+        fontSize: 18,
+        marginBottom: 5
+    },
+    TextStyle: {
+        fontSize: 16
+    },
+    buttonSpacing: {
+        marginTop: 20
+    },
+    playerText: {
+        marginTop: 20,
+        marginLeft: 15,
+        marginBottom: 10
+    },
     container: {
+        flex: 1,
         backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
+        // alignItems: 'center',
+        // justifyContent: 'center',
     },
     dices: {
         flex: 1,

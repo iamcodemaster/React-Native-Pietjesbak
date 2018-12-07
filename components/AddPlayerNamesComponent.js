@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, KeyboardAvoidingView, TextInput, TouchableOpacity } from 'react-native';
-import { Button, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
+import { StyleSheet, KeyboardAvoidingView } from 'react-native';
+import { Button, FormLabel, FormInput } from 'react-native-elements';
 
 export default class AddPlayerNamesComponent extends Component {
     state = {
@@ -31,7 +31,7 @@ export default class AddPlayerNamesComponent extends Component {
                     placeholder="Name Player 2" />
                 <Button 
                     buttonStyle={styles.button}
-                    backgroundColor="#2096F3"
+                    backgroundColor="#0B60FF"
                     title="Start the game"
                     onPress={this.handleSubmit} />
             </KeyboardAvoidingView>
@@ -47,6 +47,6 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
         // alignItems: 'center',
-        justifyContent: 'center',
+        // justifyContent: 'center',
     },
 });
