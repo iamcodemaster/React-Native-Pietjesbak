@@ -16,37 +16,43 @@ export default class StartGameScreen extends Component {
             playerOneRollButton: false,
             playerTwoRollButton: false,
             startGameButton: true,
+            starter: 0,
             players
         };
     }
 
-    rollTheDice(player) {
+    rollTheDice(indexPlayer) {
         let playerOneRollButton = this.state.playerOneRollButton;
         let playerTwoRollButton = this.state.playerTwoRollButton;
         let startGameButton = this.state.startGameButton;
-        if(player == 1) {
-            players.playerOne.startDice = Math.floor(Math.random() * 6) + 1;
+        let starter = this.state.starter;
+
+        players[indexPlayer].startDice = Math.floor(Math.random() * 6) + 1;
+        if(indexPlayer == 0) {
             playerOneRollButton = true;
-        } else if(player == 2) {
-            players.playerTwo.startDice = Math.floor(Math.random() * 6) + 1;
+        } else if(indexPlayer == 1) {
             playerTwoRollButton = true;
         }
+
         // check if the dice values are equal
         if(playerOneRollButton == true && playerTwoRollButton == true) {
-            if(players.playerOne.startDice == players.playerTwo.startDice) {
+            if(players[0].startDice == players[1].startDice) {
                 playerOneRollButton = false;
                 playerTwoRollButton = false;
             } else {
-                players.playerOne.startDice > players.playerTwo.startDice ? players.playerOne.turn = true : players.playerTwo.turn = true;
-                if(players.playerOne.turn == true) {
-                    players.playerOne.disabled = false;
-                } else if(players.playerTwo.turn == true) {
-                    players.playerTwo.disabled = false;
+                players[0].startDice > players[1].startDice ? players[0].turn = true : players[1].turn = true;
+                if(players[0].turn == true) {
+                    players[0].disabled = false;
+                    starter = 0;
+                } else if(players[1].turn == true) {
+                    players[1].disabled = false;
+                    starter = 1;
                 }
                 startGameButton = false;
             }
         }
         this.setState({
+            starter: starter,
             playerOneRollButton: playerOneRollButton,
             playerTwoRollButton: playerTwoRollButton,
             startGameButton: startGameButton,
@@ -54,39 +60,44 @@ export default class StartGameScreen extends Component {
         });
     }
 
+    navigateToGame() {
+        this.props.navigation.navigate('Game', {
+            starter: this.state.starter,
+        });
+    }
+
     render() {
-        const {navigate} = this.props.navigation;
         return (
             <View style={styles.container}>
                 {/* Player One */}
                 <View style={styles.playerText}>
-                    <Text style={styles.ImportantTextElements}>Player 1: {this.state.players.playerOne.name}</Text>
-                    <Text style={styles.TextStyle}>Pinstripes: {this.state.players.playerOne.pinstripes}</Text>
-                    <Text style={styles.TextStyle}>Dice: {this.state.players.playerOne.startDice}</Text>
+                    <Text style={styles.ImportantTextElements}>Player 1: {this.state.players[0].name}</Text>
+                    <Text style={styles.TextStyle}>Pinstripes: {this.state.players[0].pinstripes}</Text>
+                    <Text style={styles.TextStyle}>Dice: {this.state.players[0].startDice}</Text>
                 </View>
                 <Button 
                     backgroundColor="#0B60FF"
                     title="Roll the dice" 
                     disabled={this.state.playerOneRollButton} 
-                    onPress={() => {this.rollTheDice(this.state.players.playerOne.id)}} />
+                    onPress={() => {this.rollTheDice(0)}} />
                 {/* Player Two */}
                 <View style={styles.playerText}>
-                    <Text style={styles.ImportantTextElements}>Player 2: {this.state.players.playerTwo.name}</Text>
-                    <Text style={styles.TextStyle}>Pinstripes: {this.state.players.playerTwo.pinstripes}</Text>
-                    <Text style={styles.TextStyle}>Dice: {this.state.players.playerTwo.startDice}</Text>
+                    <Text style={styles.ImportantTextElements}>Player 2: {this.state.players[1].name}</Text>
+                    <Text style={styles.TextStyle}>Pinstripes: {this.state.players[1].pinstripes}</Text>
+                    <Text style={styles.TextStyle}>Dice: {this.state.players[1].startDice}</Text>
                 </View>
                 <Button 
                     backgroundColor="#CE3B3E"
                     title="Roll the dice" 
                     disabled={this.state.playerTwoRollButton} 
-                    onPress={() => {this.rollTheDice(this.state.players.playerTwo.id)}} />
+                    onPress={() => {this.rollTheDice(1)}} />
                 {/* Start Button */}
                 <Button 
                     buttonStyle={styles.buttonSpacing}
                     backgroundColor="#0B60FF"
                     title="Start Game"
                     disabled={this.state.startGameButton} 
-                    onPress={() => navigate('Game')} />
+                    onPress={() => this.navigateToGame()} />
             </View>
         );
     }

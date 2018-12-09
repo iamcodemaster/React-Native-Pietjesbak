@@ -24,8 +24,8 @@ export default class App extends Component {
   };
 
   addPlayerNames = newPlayer => {
-    players.playerOne.name = newPlayer.playerOneName;
-    players.playerTwo.name = newPlayer.playerTwoName;
+    players[0].name = newPlayer.playerOneName;
+    players[1].name = newPlayer.playerTwoName;
   }
 
   render() {

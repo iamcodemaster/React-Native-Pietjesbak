@@ -1,10 +1,16 @@
-let players = {
-    playerOne: {
+let players = [
+    {
         id: 1,
         name: 'Player 1',
         startDice: 0,
         turn: false,
+        turnEnded: false,
         score: 0,
+        lastDiceNumbers: [
+            0,
+            0,
+            0,
+        ],
         firstDice: {
             throwTheDice: true,
             number: 0
@@ -21,12 +27,18 @@ let players = {
         throws: 0,
         disabled: true
     },
-    playerTwo: {
+    {
         id: 2,
         name: 'Player 2',
         startDice: 0,
         turn: false,
+        turnEnded: false,
         score: 0,
+        lastDiceNumbers: [
+            0,
+            0,
+            0,
+        ],
         firstDice: {
             throwTheDice: true,
             number: 0
@@ -43,6 +55,6 @@ let players = {
         throws: 0,
         disabled: true
     }
-  };
+];
 
   export default players;
