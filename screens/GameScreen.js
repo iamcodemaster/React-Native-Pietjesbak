@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Button, Switch, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Switch, ScrollView, TouchContainer } from 'react-native';
+import { Button } from 'react-native-elements';
 import Dice from '../components/DiceComponent';
 import Player from '../components/PlayerComponent';
 import players from './../players';
@@ -15,7 +16,7 @@ export default class GameScreen extends Component {
 
         this.state = {
             // main states
-            players: players,
+            players,
             dices,
 
             activePlayer: this.props.navigation.getParam('starter', 0),
@@ -105,6 +106,7 @@ export default class GameScreen extends Component {
         // set dice numbers on 0 and set checked on true for all dices
         dices.forEach(dice => {
             dice.number = 0;
+            // dice.side = 0;
             dice.checked = true;
         });
         // set new states
@@ -167,6 +169,7 @@ export default class GameScreen extends Component {
             if(dices[i].checked == true) {
                 let randomNumber = Math.floor(Math.random() * 6) + 1;
                 dices[i].number = randomNumber;
+                dices[i].side = dices[i].number - 1;
             }
         }
         // increase throws of active player
@@ -372,27 +375,34 @@ export default class GameScreen extends Component {
                     diceNumbers={this.state.players[1].lastDiceNumbers} />
                 <View style={styles.dices}>
                     <Dice 
+                        side={this.state.dices[0].side}
                         dice={0}
-                        number={this.state.dices[0].number}
                         activePlayer={this.state.activePlayer} />
                     <Dice 
+                        side={this.state.dices[1].side}
                         dice={1}
-                        number={this.state.dices[1].number}
                         activePlayer={this.state.activePlayer} />
                     <Dice 
+                        side={this.state.dices[2].side}
                         dice={2}
-                        number={this.state.dices[2].number}
                         activePlayer={this.state.activePlayer} />
                 </View>
-                <View>
-                    <Button 
-                        title="Roll" 
-                        disabled={this.state.rollButton} 
-                        onPress={() => {this.roll(this.state.activePlayer)}} />
-                    <Button 
-                        title="Pass" 
-                        disabled={this.state.passButton}
-                        onPress={() => {this.pass(this.state.activePlayer)}} />
+                <View style={styles.buttonsContainer}>
+                    <View style={{flex: 1}}>
+                        <Button 
+                            backgroundColor="#CE3B3E"
+                            title="Roll" 
+                            disabled={this.state.rollButton} 
+                            onPress={() => {this.roll(this.state.activePlayer)}} />
+                    </View>
+                    <View style={{flex: 1}}>
+                        <Button 
+                            backgroundColor="#CE3B3E"
+                            buttonStyle={{flex: 1}}
+                            title="Pass" 
+                            disabled={this.state.passButton}
+                            onPress={() => {this.pass(this.state.activePlayer)}} />
+                    </View>
                 </View>
             </View>
             <Button 
@@ -435,6 +445,12 @@ const styles = StyleSheet.create({
     },
     activePlayer: {
         backgroundColor: '#999'
+    },
+    buttonsContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
     }
 });
 
