@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Switch, ScrollView, TouchContainer } from 'react-native';
-import { Button } from 'react-native-elements';
+import { LinearGradient } from 'expo';
+import { Icon } from 'react-native-elements';
 import Dice from '../components/DiceComponent';
 import Player from '../components/PlayerComponent';
 import players from './../players';
@@ -361,18 +362,8 @@ export default class GameScreen extends Component {
 
     render() {
       return (
-        <ScrollView>
-            <View style={styles.container}>
-                <Player 
-                    name={this.state.players[0].name} 
-                    score={this.state.players[0].score} 
-                    pinstripes={this.state.players[0].pinstripes} 
-                    diceNumbers={this.state.players[0].lastDiceNumbers} />
-                <Player 
-                    name={this.state.players[1].name} 
-                    score={this.state.players[1].score} 
-                    pinstripes={this.state.players[1].pinstripes}
-                    diceNumbers={this.state.players[1].lastDiceNumbers} />
+        <View style={styles.mainContainer}>
+            <LinearGradient colors={['#90D217', '#6dbe0d']} style={styles.diceContainer}>
                 <View style={styles.dices}>
                     <Dice 
                         side={this.state.dices[0].side}
@@ -387,34 +378,67 @@ export default class GameScreen extends Component {
                         dice={2}
                         activePlayer={this.state.activePlayer} />
                 </View>
-                <View style={styles.buttonsContainer}>
-                    <View style={{flex: 1}}>
-                        <Button 
-                            backgroundColor="#CE3B3E"
-                            title="Roll" 
-                            disabled={this.state.rollButton} 
-                            onPress={() => {this.roll(this.state.activePlayer)}} />
-                    </View>
-                    <View style={{flex: 1}}>
-                        <Button 
-                            backgroundColor="#CE3B3E"
-                            buttonStyle={{flex: 1}}
-                            title="Pass" 
-                            disabled={this.state.passButton}
-                            onPress={() => {this.pass(this.state.activePlayer)}} />
-                    </View>
-                </View>
+            </LinearGradient>
+            <View style={styles.playersContainer}>
+                <Player 
+                    name={this.state.players[0].name} 
+                    score={this.state.players[0].score} 
+                    pinstripes={this.state.players[0].pinstripes} 
+                    diceNumbers={this.state.players[0].lastDiceNumbers} />
+                <Player 
+                    name={this.state.players[1].name} 
+                    score={this.state.players[1].score} 
+                    pinstripes={this.state.players[1].pinstripes}
+                    diceNumbers={this.state.players[1].lastDiceNumbers} />
             </View>
-            <Button 
-                title="New round" 
-                disabled={this.state.newRoundButton}
-                onPress={() => {this.startNewRound()}} />
-        </ScrollView>
+            <View style={styles.buttonsContainer}>
+                <Icon 
+                    raised
+                    name='fast-forward'
+                    type='feather'
+                    color='#517fa4'
+                    disabled={this.state.passButton}
+                    onPress={() => {this.pass(this.state.activePlayer)}} />
+                <Icon 
+                    raised
+                    name='play'
+                    type='feather'
+                    color='#6FDA97'
+                    size={34}
+                    disabled={this.state.rollButton} 
+                    onPress={() => {this.roll(this.state.activePlayer)}} />
+                <Icon 
+                    raised
+                    name='rotate-cw'
+                    type='feather'
+                    color='#517fa4'
+                    disabled={this.state.newRoundButton}
+                    onPress={() => {this.startNewRound()}} />
+            </View>
+        </View>
       );
     }
   }
 
 const styles = StyleSheet.create({
+    mainContainer: {
+        flex: 1,
+        backgroundColor: '#fff',
+    },
+    diceContainer: {
+        flex: 1,
+        backgroundColor: 'green',
+    },
+    playersContainer: {
+        flex: 1,
+        backgroundColor: '#fffbe0'
+    },
+    buttonsContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom: 20
+    },
     ImportantTextElements: {
         fontWeight: 'bold',
         fontSize: 18,
@@ -446,12 +470,6 @@ const styles = StyleSheet.create({
     activePlayer: {
         backgroundColor: '#999'
     },
-    buttonsContainer: {
-        flex: 1,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-    }
 });
 
   

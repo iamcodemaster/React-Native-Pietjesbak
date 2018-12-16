@@ -3,10 +3,12 @@ import { createSwitchNavigator, createStackNavigator } from 'react-navigation';
 import AddPlayerNamesScreen from './screens/AddPlayerNamesScreen';
 import StartGameScreen from './screens/StartGameScreen';
 import GameScreen from './screens/GameScreen';
+import StartScreen from './screens/StartScreen';
 import players from './players';
 
 const AppNavigator = createStackNavigator(
   {
+    Start: StartScreen,
     AddPlayerNames: AddPlayerNamesScreen,
     StartGame: StartGameScreen,
     Game: GameScreen
