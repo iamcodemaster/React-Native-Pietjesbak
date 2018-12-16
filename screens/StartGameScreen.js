@@ -1,12 +1,20 @@
 
 import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Image } from 'react-native';
 import players from './../players';
 import { Button, Text, Divider } from 'react-native-elements';
 
 export default class StartGameScreen extends Component {
     static navigationOptions = {
         headerTitle: 'Roll the dices to begin',
+        headerTintColor: '#CF7307',
+        headerStyle: {
+            backgroundColor: '#fffbe0'
+        },
+        headerTitleStyle: {
+            alignSelf: 'center',
+            color: '#CF7307'
+        }
     };
 
     constructor() {
@@ -70,31 +78,43 @@ export default class StartGameScreen extends Component {
         return (
             <View style={styles.container}>
                 {/* Player One */}
-                <View style={styles.playerText}>
-                    <Text style={styles.ImportantTextElements}>Player 1: {this.state.players[0].name}</Text>
-                    <Text style={styles.TextStyle}>Pinstripes: {this.state.players[0].pinstripes}</Text>
-                    <Text style={styles.TextStyle}>Dice: {this.state.players[0].startDice}</Text>
+                <View style={styles.playerContainer}>
+                    <View style={styles.avatarContainer}>
+                        <Image style={styles.avatar} source={this.state.players[0].avatar} />
+                    </View>
+                    <View style={styles.playerText}>
+                        <Text style={styles.ImportantTextElements}>Player 1: {this.state.players[0].name}</Text>
+                        <Text style={styles.TextStyle}>Pinstripes: {this.state.players[0].pinstripes}</Text>
+                        <Text style={styles.TextStyle}>Dice: {this.state.players[0].startDice}</Text>
+                    </View>
                 </View>
                 <Button 
-                    backgroundColor="#0B60FF"
+                    buttonStyle={styles.button}
+                    backgroundColor="#92D418"
                     title="Roll the dice" 
                     disabled={this.state.playerOneRollButton} 
                     onPress={() => {this.rollTheDice(0)}} />
                 {/* Player Two */}
-                <View style={styles.playerText}>
-                    <Text style={styles.ImportantTextElements}>Player 2: {this.state.players[1].name}</Text>
-                    <Text style={styles.TextStyle}>Pinstripes: {this.state.players[1].pinstripes}</Text>
-                    <Text style={styles.TextStyle}>Dice: {this.state.players[1].startDice}</Text>
+                <View style={styles.playerContainer}>
+                    <View style={styles.avatarContainer}>
+                        <Image style={styles.avatar} source={this.state.players[1].avatar} />
+                    </View>
+                    <View style={styles.playerText}>
+                        <Text style={styles.ImportantTextElements}>Player 2: {this.state.players[1].name}</Text>
+                        <Text style={styles.TextStyle}>Pinstripes: {this.state.players[1].pinstripes}</Text>
+                        <Text style={styles.TextStyle}>Dice: {this.state.players[1].startDice}</Text>
+                    </View>
                 </View>
                 <Button 
-                    backgroundColor="#CE3B3E"
+                    buttonStyle={styles.button}
+                    backgroundColor="#92D418"
                     title="Roll the dice" 
                     disabled={this.state.playerTwoRollButton} 
                     onPress={() => {this.rollTheDice(1)}} />
                 {/* Start Button */}
                 <Button 
-                    buttonStyle={styles.buttonSpacing}
-                    backgroundColor="#0B60FF"
+                    buttonStyle={[styles.buttonSpacing, styles.button]}
+                    backgroundColor="#92D418"
                     title="Start Game"
                     disabled={this.state.startGameButton} 
                     onPress={() => this.navigateToGame()} />
@@ -106,22 +126,37 @@ export default class StartGameScreen extends Component {
 const styles = StyleSheet.create({
     ImportantTextElements: {
         fontWeight: 'bold',
-        fontSize: 18,
-        marginBottom: 5
-    },
-    TextStyle: {
-        fontSize: 16
+        color: '#CF7307'
     },
     buttonSpacing: {
         marginTop: 20
     },
-    playerText: {
+    playerContainer: {
+        flexDirection: 'row',
         marginTop: 20,
         marginLeft: 15,
-        marginBottom: 10
+        marginBottom: 10,
+    },
+    avatarContainer: {
+        justifyContent: 'center',
+        marginRight: 15,
+    },
+    avatar: {
+        width: 50,
+        height: 50,
+        borderRadius: 25,
+    },
+    playerText: {
+    },
+    TextStyle: {
+        color: '#ecad63',
     },
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: '#fffbe0',
+        justifyContent: 'center',
+    },
+    button: {
+        borderRadius: 100
     },
 });

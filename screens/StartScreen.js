@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, ImageBackground, TouchableOpacity, Text, Animated, Easing } from 'react-native';
+import { StyleSheet, View, ImageBackground, TouchableOpacity, Text, Animated, Image } from 'react-native';
+import { Button } from 'react-native-elements';
 
 export default class StartScreen extends Component {
     constructor () {
@@ -36,20 +37,27 @@ export default class StartScreen extends Component {
             <View style={ styles.container }>
                 <ImageBackground source={require('../assets/img/bg.png')} style={styles.backgroundImage}>
                     <View style={styles.mainWrapper}>
+                        <View>
+                            <Image
+                                style={{width: 250, height: 50}}
+                                source={require('../assets/img/logo.png')} />
+                        </View>
                         <View style={styles.elementsContainer}>
                             <Animated.Image
                                 style={{width: 50, height: 50, transform: [{scale: this.springValue}]}}
-                                source={require('../assets/img/el.png')} />
+                                source={require('../assets/img/die-1.png')} />
                             <Animated.Image
                                 style={{width: 50, height: 50, transform: [{scale: this.springValue}]}}
-                                source={require('../assets/img/el.png')} />
+                                source={require('../assets/img/die-2.png')} />
                             <Animated.Image
                                 style={{width: 50, height: 50, transform: [{scale: this.springValue}]}}
-                                source={require('../assets/img/el.png')} />
+                                source={require('../assets/img/die-3.png')} />
                         </View>
-                        <TouchableOpacity onPress={() => this.startGame()}>
-                            <Text>Hello</Text>
-                        </TouchableOpacity>
+                        <Button 
+                            buttonStyle={styles.button}
+                            onPress={() => this.startGame()}
+                            backgroundColor="#92D418"
+                            title="Let's Go!" />
                     </View>
                 </ImageBackground>
             </View>
@@ -76,5 +84,9 @@ var styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-    }
+    },
+    button: {
+        marginTop: 40,
+        borderRadius: 100
+    },
 });

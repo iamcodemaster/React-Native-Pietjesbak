@@ -4,9 +4,9 @@ import { Text, View, StyleSheet, Image } from 'react-native';
 export default class Player extends Component {
   render() {
     return (
-        <View style={[styles.playerText, styles.activePlayer, styles.player]}>
+        <View style={[styles.playerText, styles.activePlayer, styles.player, this.props.style]}>
           <View style={styles.avatarContainer}>
-            <Image style={styles.avatar} source={require('../assets/img/el.png')} />
+            <Image style={styles.avatar} source={this.props.avatar} />
           </View>
           <View style={styles.detailContainer}>
             <Text style={[styles.textStyle, styles.importantTextElements]}>{this.props.name}</Text>
@@ -28,26 +28,25 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 25,
   },
-  importantTextElements: {
-    fontWeight: 'bold'
-  },
   textStyle: {
     // fontSize: 16
+    color: '#ecad63'
   },
   playerText: {
-    marginLeft: 15,
-    marginRight: 15,
+    paddingLeft: 15,
+    paddingRight: 15
+  },
+  importantTextElements: {
+    fontWeight: 'bold',
+    color: '#CF7307'
   },
   player: {
     // flex: 1,
     flexDirection: 'row',
-    borderBottomColor: '#bbb',
+    borderBottomColor: '#EED498',
     borderBottomWidth: StyleSheet.hairlineWidth,
     alignItems: 'center',
-    paddingTop: 5,
-    paddingBottom: 5
-  },
-  activePlayer: {
-    // backgroundColor: '#999'
+    paddingTop: 10,
+    paddingBottom: 10
   }
 });

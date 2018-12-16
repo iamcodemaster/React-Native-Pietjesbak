@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
-import { createSwitchNavigator, createStackNavigator } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation';
+// Screens Components
 import AddPlayerNamesScreen from './screens/AddPlayerNamesScreen';
 import StartGameScreen from './screens/StartGameScreen';
 import GameScreen from './screens/GameScreen';
 import StartScreen from './screens/StartScreen';
+import EndGameScreen from './screens/EndGameScreen';
+// Data
 import players from './players';
 
 const AppNavigator = createStackNavigator(
@@ -11,7 +14,8 @@ const AppNavigator = createStackNavigator(
     Start: StartScreen,
     AddPlayerNames: AddPlayerNamesScreen,
     StartGame: StartGameScreen,
-    Game: GameScreen
+    Game: GameScreen,
+    EndGame: EndGameScreen
   }
 );
 

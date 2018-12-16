@@ -1,15 +1,26 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Switch, ScrollView, TouchContainer } from 'react-native';
+import { StyleSheet, Text, View, Switch, ScrollView, TouchContainer, TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo';
-import { Icon } from 'react-native-elements';
+import { Icon, Badge } from 'react-native-elements';
+// Custom Components
 import Dice from '../components/DiceComponent';
 import Player from '../components/PlayerComponent';
+// Data
 import players from './../players';
 import dices from './../dices';
 
 export default class GameScreen extends Component {
     static navigationOptions = {
         headerTitle: 'Pietjesbak',
+        headerLeft: null,
+        headerTintColor: '#CF7307',
+        headerStyle: {
+            backgroundColor: '#fffbe0'
+        },
+        headerTitleStyle: {
+            alignSelf: 'center',
+            color: '#CF7307'
+        }
     };
 
     constructor(props) {
@@ -207,11 +218,17 @@ export default class GameScreen extends Component {
         })
     }
 
-    // TO DO
+    // DONE
     isGameOver() {
-        if (players.playerOne.pinstripes <= 0 || players.playerTwo.pinstripes <= 0) {
-            alert("Game Over");
-        }
+        let winner;
+        players.forEach(player => {
+            if(player.pinstripes <= 0) {
+                winner = player;
+                this.props.navigation.navigate('EndGame', {
+                    winner: winner,
+                });
+            }
+        });
     }
 
     // TO DO
@@ -266,10 +283,10 @@ export default class GameScreen extends Component {
             roundWinner: roundWinner
         })
 
-        // this.isGameOver();
+        this.isGameOver();
     }
 
-    // TO DO
+    // DONE
     countScore() {
         // create array with dice numbers
         let dicesArray = [];
@@ -277,9 +294,17 @@ export default class GameScreen extends Component {
             dicesArray.push(dice.number);
         });
 
+        // Check the dice sides
         if(this.isFullAses(dicesArray)) {
-            // win direct
-            alert('ass');
+            // win direct - all lines out
+            // set pinstripes on 0
+            players[this.state.activePlayer].pinstripes = 0;
+            // set new state
+            this.setState({
+                players: players
+            })
+            // game over
+            this.isGameOver();
         } else if(this.isSoixanteNeuf(dicesArray)) {
             // 3 lines out
             players[this.state.activePlayer].score = 69;
@@ -291,12 +316,12 @@ export default class GameScreen extends Component {
                 }
             }
         } else {
+            // 1 line out
             let score = this.isSomethingElse(dicesArray);
             players[this.state.activePlayer].score = score[0] + score[1] + score[2];
         }
 
         // add dice numbers to player last dice numbers
-        alert(this.state.activePlayer);
         players[this.state.activePlayer].lastDiceNumbers = [
             dices[0].number,
             dices[1].number,
@@ -339,10 +364,13 @@ export default class GameScreen extends Component {
         return false;
     }
 
-    // TO DO
+    // DONE
     isSeven(dices) {
         // To Do: are the numbers 2 2 3
-        alert("seven")
+        if(dices.includes(2, 2, 3)) {
+            return true;
+        }
+        return false;
     }
 
     // DONE
@@ -381,39 +409,60 @@ export default class GameScreen extends Component {
             </LinearGradient>
             <View style={styles.playersContainer}>
                 <Player 
+                    style={
+                        this.state.activePlayer == 0
+                        ? styles.activePlayer
+                        : styles.inactivePlayer
+                    }
                     name={this.state.players[0].name} 
                     score={this.state.players[0].score} 
                     pinstripes={this.state.players[0].pinstripes} 
-                    diceNumbers={this.state.players[0].lastDiceNumbers} />
+                    diceNumbers={this.state.players[0].lastDiceNumbers} 
+                    avatar={this.state.players[0].avatar} />
                 <Player 
+                    style={
+                        this.state.activePlayer == 1
+                        ? styles.activePlayer
+                        : styles.inactivePlayer
+                    }
                     name={this.state.players[1].name} 
                     score={this.state.players[1].score} 
                     pinstripes={this.state.players[1].pinstripes}
-                    diceNumbers={this.state.players[1].lastDiceNumbers} />
+                    diceNumbers={this.state.players[1].lastDiceNumbers} 
+                    avatar={this.state.players[1].avatar} />
             </View>
             <View style={styles.buttonsContainer}>
-                <Icon 
-                    raised
-                    name='fast-forward'
-                    type='feather'
-                    color='#517fa4'
-                    disabled={this.state.passButton}
-                    onPress={() => {this.pass(this.state.activePlayer)}} />
-                <Icon 
-                    raised
-                    name='play'
-                    type='feather'
-                    color='#6FDA97'
-                    size={34}
-                    disabled={this.state.rollButton} 
-                    onPress={() => {this.roll(this.state.activePlayer)}} />
-                <Icon 
-                    raised
-                    name='rotate-cw'
-                    type='feather'
-                    color='#517fa4'
-                    disabled={this.state.newRoundButton}
-                    onPress={() => {this.startNewRound()}} />
+                <View style={ this.state.passButton ? styles.deactivate : styles.activate }>
+                    <Icon 
+                        raised
+                        containerStyle={{backgroundColor: '#F892AC'}}
+                        name='fast-forward'
+                        type='feather'
+                        color='#F4F2ED'
+                        disabled={this.state.passButton}
+                        onPress={() => {this.pass(this.state.activePlayer)}} />
+                </View>
+                <View style={ this.state.rollButton ? styles.deactivate : styles.activate }>
+                    <Icon 
+                        raised
+                        containerStyle={{backgroundColor: '#92D418'}}
+                        name='play'
+                        type='feather'
+                        color='#F4F2ED'
+                        size={34}
+                        disabled={this.state.rollButton} 
+                        onPress={() => {this.roll(this.state.activePlayer)}} />
+                </View>
+                <View style={ this.state.newRoundButton ? styles.deactivate : styles.activate }>
+                    <Icon 
+                        raised
+                        containerStyle={{backgroundColor: '#54C9F4'}}
+                        name='rotate-cw'
+                        type='feather'
+                        color='#F4F2ED'
+                        disabled={this.state.newRoundButton}
+                        onPress={() => {this.startNewRound()}} />
+                </View>
             </View>
         </View>
       );
@@ -423,21 +472,21 @@ export default class GameScreen extends Component {
 const styles = StyleSheet.create({
     mainContainer: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: '#fffbe0',
     },
     diceContainer: {
-        flex: 1,
-        backgroundColor: 'green',
+        flex: 1
     },
     playersContainer: {
         flex: 1,
-        backgroundColor: '#fffbe0'
+        // backgroundColor: '#fffbe0'
     },
     buttonsContainer: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        marginBottom: 20
+        paddingBottom: 30,
+        // backgroundColor: '#fffbe0'
     },
     ImportantTextElements: {
         fontWeight: 'bold',
@@ -455,12 +504,6 @@ const styles = StyleSheet.create({
         marginLeft: 15,
         marginBottom: 10
     },
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        // alignItems: 'center',
-        // justifyContent: 'center',
-    },
     dices: {
         flex: 1,
         flexDirection: 'row',
@@ -468,8 +511,17 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     activePlayer: {
-        backgroundColor: '#999'
+        backgroundColor: '#f9f2c5'
     },
+    inactivePlayer: {
+        backgroundColor: 'transparent'
+    },
+    activate: {
+        opacity: 1
+    },
+    deactivate: {
+        opacity: 0.3
+    }
 });
 
   

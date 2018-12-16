@@ -19,20 +19,22 @@ export default class AddPlayerNamesComponent extends Component {
     render() {
         return (
             <KeyboardAvoidingView behavior="padding" style={styles.container}>
-                <FormLabel>Player 1</FormLabel>
+                <FormLabel labelStyle={styles.label}>Player 1</FormLabel>
                 <FormInput 
+                    inputStyle={styles.input}
                     value={this.state.playerOneName}
                     onChangeText={this.getHandler('playerOneName')}
                     placeholder="Name Player 1" />
-                <FormLabel>Player 2</FormLabel>
+                <FormLabel labelStyle={styles.label}>Player 2</FormLabel>
                 <FormInput 
+                    inputStyle={styles.input}
                     value={this.state.playerTwoName}
                     onChangeText={this.getHandler('playerTwoName')}
                     placeholder="Name Player 2" />
                 <Button 
                     buttonStyle={styles.button}
-                    backgroundColor="#0B60FF"
-                    title="Start the game"
+                    backgroundColor="#92D418"
+                    title="Let's get started"
                     onPress={this.handleSubmit} />
             </KeyboardAvoidingView>
         );
@@ -41,12 +43,20 @@ export default class AddPlayerNamesComponent extends Component {
 
 const styles = StyleSheet.create({
     button: {
-        marginTop: 20
+        marginTop: 20,
+        borderRadius: 100
     },
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: '#fffbe0',
         // alignItems: 'center',
-        // justifyContent: 'center',
+        justifyContent: 'center',
     },
+    label: {
+        color: '#CF7307'
+    },
+    input: {
+        color: '#ecad63',
+        borderBottomColor: '#EED498',
+    }
 });

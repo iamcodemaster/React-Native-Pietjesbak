@@ -12,7 +12,8 @@ export default class Dice extends Component {
 
     this.state = {
       dices,
-      players
+      players,
+      keep: true
     }
     
   }
@@ -34,16 +35,17 @@ export default class Dice extends Component {
     const Side = [SideOne, SideTwo, SideThree, SideFour, SideFive, SideSix][this.props.side]
     return (
       <View style={styles.side}>
-        <TouchableHighlight
-            style={
-              this.state.dices[this.props.dice].checked
-                ? styles.doNotKeepDie
-                : styles.keepDie
-            }
-            underlayColor={'transparent'}
-            onPress={() => {this.toggleDice(this.props.dice, this.props.activePlayer)}} >
+        <View style={ this.state.dices[this.props.dice].checked ? styles.throwDie : styles.keepDie }>
           <Side />
-        </TouchableHighlight>
+        </View>
+        <CheckBox
+          center
+          checkedIcon='dot-circle-o'
+          uncheckedIcon='circle-o'
+          checkedColor='#CF7307'
+          containerStyle={styles.checkbox}
+          onPress={() => {this.toggleDice(this.props.dice, this.props.activePlayer)}}
+          checked={this.state.dices[this.props.dice].checked} />
       </View>
     );
   }
@@ -57,12 +59,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     opacity: 1
   },
-  keepDie: {
-    opacity: 0.5,
+  checkbox: {
     backgroundColor: 'transparent',
+    borderWidth: 0,
+    marginLeft: 30,
+    // display: 'none'
   },
-  doNotKeepDie: {
-    opacity: 1,
-    backgroundColor: 'transparent',
+  keepDie: {
+    opacity: 0.5
+  },
+  throwDie: {
+    opacity: 1
   }
 });

@@ -1,7 +1,7 @@
 let players = [
     {
-        id: 1,
         name: 'Player 1',
+        avatar: require('./assets/img/player-1.png'),
         startDice: 0,
         turn: false,
         turnEnded: false,
@@ -11,25 +11,13 @@ let players = [
             0,
             0,
         ],
-        firstDice: {
-            throwTheDice: true,
-            number: 0
-        },
-        secondDice: {
-            throwTheDice: true,
-            number: 0
-        },
-        thirdDice: {
-            throwTheDice: true,
-            number: 0
-        },
-        pinstripes: 9,
+        pinstripes: 5,
         throws: 0,
         disabled: true
     },
     {
-        id: 2,
         name: 'Player 2',
+        avatar: require('./assets/img/player-2.png'),
         startDice: 0,
         turn: false,
         turnEnded: false,
@@ -39,19 +27,7 @@ let players = [
             0,
             0,
         ],
-        firstDice: {
-            throwTheDice: true,
-            number: 0
-        },
-        secondDice: {
-            throwTheDice: true,
-            number: 0
-        },
-        thirdDice: {
-            throwTheDice: true,
-            number: 0
-        },
-        pinstripes: 9,
+        pinstripes: 5,
         throws: 0,
         disabled: true
     }

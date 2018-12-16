@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Button, KeyboardAvoidingView, TextInput } from 'react-native';
-import AddPlayerNamesComponent from '../components/AddPlayerNamesComponent';
 
-export default class AddPlayerNamesScreen extends Component {
+export default class EndGameScreen extends Component {
     static navigationOptions = {
-        headerTitle: 'Add Player Names',
+        headerTitle: 'Good Game',
+        headerLeft: null,
         headerTintColor: '#CF7307',
         headerStyle: {
             backgroundColor: '#fffbe0'
@@ -14,13 +14,20 @@ export default class AddPlayerNamesScreen extends Component {
             color: '#CF7307'
         }
     };
-  
-    handleSubmit = formState => {
-        this.props.screenProps.addPlayerNames(formState);
-        this.props.navigation.navigate('StartGame');
-    };
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            winnerPlayer: this.props.navigation.getParam('winner', 0)
+        }
+    }
   
     render() {
-      return <AddPlayerNamesComponent onSubmit={this.handleSubmit} />;
+      return(
+          <View>
+              <Text>{this.state.winnerPlayer.name}</Text>
+          </View>
+      );
     }
 }
