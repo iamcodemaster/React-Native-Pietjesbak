@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, TouchableHighlight } from 'react-native';
+import { View, Text, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import { CheckBox } from 'react-native-elements';
-import { SideThree, SideOne, SideTwo, SideFour, SideFive, SideSix } from './side';
+import { SideThree, SideOne, SideTwo, SideFour, SideFive, SideSix } from './SideComponent';
 
 import dices from '../dices';
 import players from '../players';
@@ -35,7 +35,7 @@ export default class Dice extends Component {
     const Side = [SideOne, SideTwo, SideThree, SideFour, SideFive, SideSix][this.props.side]
     return (
       <View style={styles.side}>
-        <View style={ this.state.dices[this.props.dice].checked ? styles.throwDie : styles.keepDie }>
+        <View style={ this.state.dices[this.props.dice].checked ? styles.throwDie : styles.keepDie}>
           <Side />
         </View>
         <CheckBox

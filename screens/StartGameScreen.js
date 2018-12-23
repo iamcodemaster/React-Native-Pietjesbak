@@ -1,8 +1,9 @@
 
 import React, { Component } from 'react';
 import { StyleSheet, View, Image } from 'react-native';
+import { Button, Text } from 'react-native-elements';
+// data
 import players from './../players';
-import { Button, Text, Divider } from 'react-native-elements';
 
 export default class StartGameScreen extends Component {
     static navigationOptions = {
@@ -19,7 +20,7 @@ export default class StartGameScreen extends Component {
 
     constructor() {
         super();
-        
+
         this.state = {
             playerOneRollButton: false,
             playerTwoRollButton: false,
@@ -71,6 +72,13 @@ export default class StartGameScreen extends Component {
     navigateToGame() {
         this.props.navigation.navigate('Game', {
             starter: this.state.starter,
+        });
+
+        this.setState({
+            playerOneRollButton: false,
+            playerTwoRollButton: false,
+            startGameButton: true,
+            starter: 0,
         });
     }
 

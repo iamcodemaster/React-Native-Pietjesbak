@@ -24,12 +24,11 @@ const styles = StyleSheet.create({
     marginRight: 15
   },
   avatar: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
+    width: 70,
+    height: 70,
+    borderRadius: 35,
   },
   textStyle: {
-    // fontSize: 16
     color: '#ecad63'
   },
   playerText: {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Button, KeyboardAvoidingView, TextInput } from 'react-native';
-import AddPlayerNamesComponent from '../components/AddPlayerNamesComponent';
+import FormComponent from '../components/FormComponent';
 
 export default class AddPlayerNamesScreen extends Component {
     static navigationOptions = {
@@ -21,6 +21,6 @@ export default class AddPlayerNamesScreen extends Component {
     };
   
     render() {
-      return <AddPlayerNamesComponent onSubmit={this.handleSubmit} />;
+      return <FormComponent onSubmit={this.handleSubmit} />;
     }
 }

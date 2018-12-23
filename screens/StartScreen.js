@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, ImageBackground, TouchableOpacity, Text, Animated, Image } from 'react-native';
+import { StyleSheet, View, ImageBackground, Animated, Image } from 'react-native';
 import { Button } from 'react-native-elements';
 
 export default class StartScreen extends Component {

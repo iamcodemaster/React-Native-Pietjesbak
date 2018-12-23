@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { createStackNavigator } from 'react-navigation';
 // Screens Components
-import AddPlayerNamesScreen from './screens/AddPlayerNamesScreen';
+import PlayersScreen from './screens/PlayersScreen';
 import StartGameScreen from './screens/StartGameScreen';
 import GameScreen from './screens/GameScreen';
 import StartScreen from './screens/StartScreen';
@@ -12,7 +12,7 @@ import players from './players';
 const AppNavigator = createStackNavigator(
   {
     Start: StartScreen,
-    AddPlayerNames: AddPlayerNamesScreen,
+    AddPlayerNames: PlayersScreen,
     StartGame: StartGameScreen,
     Game: GameScreen,
     EndGame: EndGameScreen
@@ -25,6 +25,7 @@ const AppNavigator = createStackNavigator(
 // });
 
 export default class App extends Component {
+
   state = {
     players
   };
