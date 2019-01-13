@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import { CheckBox } from 'react-native-elements';
 import { SideThree, SideOne, SideTwo, SideFour, SideFive, SideSix } from './SideComponent';
 
-import dices from '../dices';
+import dice from '../dice';
 import players from '../players';
 
 export default class Dice extends Component {
@@ -11,22 +11,22 @@ export default class Dice extends Component {
     super(props);
 
     this.state = {
-      dices,
+      dice,
       players,
       keep: true
     }
     
   }
 
-  toggleDice(activeDice, activePlayer) {
+  toggleDie(activeDie, activePlayer) {
     // if player is not at his first throw
     if(players[activePlayer].throws != 0) {
       // check or uncheck the checkbox
-      dices[activeDice].checked = !dices[activeDice].checked;
+      dice[activeDie].checked = !dice[activeDie].checked;
 
       this.setState({
         players: players,
-        dices: dices,
+        dice: dice,
       });
     }
   }
@@ -35,7 +35,7 @@ export default class Dice extends Component {
     const Side = [SideOne, SideTwo, SideThree, SideFour, SideFive, SideSix][this.props.side]
     return (
       <View style={styles.side}>
-        <View style={ this.state.dices[this.props.dice].checked ? styles.throwDie : styles.keepDie}>
+        <View style={ this.state.dice[this.props.die].checked ? styles.throwDie : styles.keepDie}>
           <Side />
         </View>
         <CheckBox
@@ -44,8 +44,8 @@ export default class Dice extends Component {
           uncheckedIcon='circle-o'
           checkedColor='#CF7307'
           containerStyle={styles.checkbox}
-          onPress={() => {this.toggleDice(this.props.dice, this.props.activePlayer)}}
-          checked={this.state.dices[this.props.dice].checked} />
+          onPress={() => {this.toggleDie(this.props.die, this.props.activePlayer)}}
+          checked={this.state.dice[this.props.die].checked} />
       </View>
     );
   }

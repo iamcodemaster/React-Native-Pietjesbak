@@ -12,7 +12,7 @@ export default class Player extends Component {
             <Text style={[styles.textStyle, styles.importantTextElements]}>{this.props.name}</Text>
             <Text style={styles.textStyle}>Score: {this.props.score}</Text>
             <Text style={styles.textStyle}>Pinstripes: {this.props.pinstripes}</Text>
-            <Text style={styles.textStyle}>Dices: {this.props.diceNumbers}</Text>
+            <Text style={styles.textStyle}>Dice: {this.props.diceNumbers}</Text>
           </View>
         </View>
     );

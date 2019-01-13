@@ -4,11 +4,11 @@ import { LinearGradient } from 'expo';
 import { Icon } from 'react-native-elements';
 import * as Animatable from 'react-native-animatable';
 // Custom Components
-import Dice from '../components/DiceComponent';
+import Die from '../components/DieComponent';
 import Player from '../components/PlayerComponent';
 // Data
 import players from './../players';
-import dices from './../dices';
+import dice from '../dice';
 
 export default class GameScreen extends Component {
     static navigationOptions = {
@@ -30,7 +30,7 @@ export default class GameScreen extends Component {
         this.state = {
             // main states
             players,
-            dices,
+            dice,
             // active player
             activePlayer: this.props.navigation.getParam('starter', 0),
             // game rounds
@@ -46,14 +46,14 @@ export default class GameScreen extends Component {
     }
 
 
-    // Shake Effect for dice
-    shakeEffect = (dice) => {
-        if(dice == 0) {
-            this.refs.shakeDiceIndex0.shake(800);
-        } else if(dice == 1) {
-            this.refs.shakeDiceIndex1.shake(800);
+    // Shake Effect for the dice
+    shakeEffect = (die) => {
+        if(die == 0) {
+            this.refs.shakeDieIndex0.shake(800);
+        } else if(die == 1) {
+            this.refs.shakeDieIndex1.shake(800);
         } else {
-            this.refs.shakeDiceIndex2.shake(800);
+            this.refs.shakeDieIndex2.shake(800);
         }
     }
 
@@ -70,8 +70,8 @@ export default class GameScreen extends Component {
         })
         // count score for the active player
         this.countScore();
-        // reset the dices for the next player
-        this.resetDices();
+        // reset the dice for the next player
+        this.resetDice();
         // check if round ended
         this.isRoundEnded();
         // change active user
@@ -97,8 +97,8 @@ export default class GameScreen extends Component {
             // set turn enden to false per player
             player.turnEnded = false;
         });
-        // reset the dices for the next player
-        this.resetDices();
+        // reset the dice for the next player
+        this.resetDice();
         // save new state
         this.setState({
             players: players,
@@ -116,16 +116,16 @@ export default class GameScreen extends Component {
         });
     }
 
-    resetDices() {
-        // set dice numbers on 0 and set checked on true for all dices
-        dices.forEach(dice => {
-            dice.number = 0;
-            // dice.side = 0;
-            dice.checked = true;
+    resetDice() {
+        // set die numbers on 0 and set checked on true for all dice
+        dice.forEach(die => {
+            die.number = 0;
+            // die.side = 0;
+            die.checked = true;
         });
         // set new states
         this.setState({
-            dices: dices
+            dice: dice
         })
     }
 
@@ -142,7 +142,7 @@ export default class GameScreen extends Component {
             // end the turn of the active player
             players[this.state.activePlayer].turnEnded = true;
             // it seems that this is not needed here -> this.countScore(); keep it for backup
-            this.resetDices();
+            this.resetDice();
         }
         // check if round is finished
         var finishRound = true;
@@ -175,12 +175,12 @@ export default class GameScreen extends Component {
     }
 
     roll(activePlayer) {
-        // change the number of the active dices
-        for (let i = 0; i < dices.length; i++) {
-            if(dices[i].checked == true) {
+        // change the number of the active dice
+        for (let i = 0; i < dice.length; i++) {
+            if(dice[i].checked == true) {
                 let randomNumber = Math.floor(Math.random() * 6) + 1;
-                dices[i].number = randomNumber;
-                dices[i].side = dices[i].number - 1;
+                dice[i].number = randomNumber;
+                dice[i].side = dice[i].number - 1;
                 this.shakeEffect(i);
             }
         }
@@ -193,8 +193,8 @@ export default class GameScreen extends Component {
             players[this.state.activePlayer].turnEnded = true;
             // calculate score for active user
             this.countScore();
-            // reset dices for the next player
-            this.resetDices();
+            // reset dice for the next player
+            this.resetDice();
             // change active user
             if((players.length - 1) != activePlayer) {
                 newActivePlayer = activePlayer + 1;
@@ -213,7 +213,7 @@ export default class GameScreen extends Component {
         // set new states
         this.setState({
             activePlayer: newActivePlayer,
-            dices: dices,
+            dice: dice,
             players: players
         })
     }
@@ -236,12 +236,12 @@ export default class GameScreen extends Component {
         let second = this.state.players[1].score;
         let roundWinner;
         if(first == second) {
-            // throw one more dice
+            // throw one more die
             // this.props.navigation.navigate('Even');
             score = [0, 0];
             Alert.alert(
                 'Even Score - ' + this.state.players[0].name,
-                'Roll the dice to decide the round winner',
+                'Roll the die to decide the round winner',
                 [
                     {
                         text: 'Roll', onPress: () => {
@@ -265,7 +265,7 @@ export default class GameScreen extends Component {
             )
             Alert.alert(
                 'Even Score - ' + this.state.players[1].name,
-                'Roll the dice to decide the round winner',
+                'Roll the die to decide the round winner',
                 [
                     {
                         text: 'Roll', onPress: () => {
@@ -324,13 +324,13 @@ export default class GameScreen extends Component {
 
     countScore() {
         // create array with dice numbers
-        let dicesArray = [];
-        dices.forEach(dice => {
-            dicesArray.push(dice.number);
+        let diceArray = [];
+        dice.forEach(die => {
+            diceArray.push(die.number);
         });
 
         // Check the dice sides
-        if(this.isFullAses(dicesArray)) {
+        if(this.isFullAses(diceArray)) {
             // win direct - all lines out
             // set pinstripes on 0
             players[this.state.activePlayer].pinstripes = 0;
@@ -340,27 +340,27 @@ export default class GameScreen extends Component {
             })
             // game over
             this.isGameOver();
-        } else if(this.isSoixanteNeuf(dicesArray)) {
+        } else if(this.isSoixanteNeuf(diceArray)) {
             // 3 lines out
             players[this.state.activePlayer].score = 69;
-        } else if(this.isZand(dicesArray)) {
+        } else if(this.isZand(diceArray)) {
             // 2 lines out
             for (let i = 2; i < 7; i++) {
-                if(dicesArray.includes(i)) {
+                if(diceArray.includes(i)) {
                     players[this.state.activePlayer].score = "zand-"+i;
                 }
             }
         } else {
             // 1 line out
-            let score = this.isSomethingElse(dicesArray);
+            let score = this.isSomethingElse(diceArray);
             players[this.state.activePlayer].score = score[0] + score[1] + score[2];
         }
 
         // add dice numbers to player last dice numbers
         players[this.state.activePlayer].lastDiceNumbers = [
-            dices[0].number,
-            dices[1].number,
-            dices[2].number,
+            dice[0].number,
+            dice[1].number,
+            dice[2].number,
         ]
 
         // set new state
@@ -369,18 +369,18 @@ export default class GameScreen extends Component {
         })
     }
 
-    isFullAses(dices) {
+    isFullAses(dice) {
         // if all dices are aces return true
-        if(dices[0] == 1 && dices[1] == 1 && dices[2] == 1) {
+        if(dice[0] == 1 && dice[1] == 1 && dice[2] == 1) {
             return true;
         }
         return false;
     }
 
-    isSoixanteNeuf(dices) {
-        let includeSix = dices.includes(6);
-        let includeFive = dices.includes(5);
-        let includeFour = dices.includes(4);
+    isSoixanteNeuf(dice) {
+        let includeSix = dice.includes(6);
+        let includeFive = dice.includes(5);
+        let includeFour = dice.includes(4);
         // if 6, 5, 4 icluded return true
         if(includeSix == true && includeFive == true && includeFour == true) {
             return true;
@@ -388,30 +388,30 @@ export default class GameScreen extends Component {
         return false;
     }
 
-    isZand(dices) {
+    isZand(dice) {
         // if all the same number return true
-        if(dices[0] == dices[1] && dices[1] == dices[2]) {
+        if(dice[0] == dice[1] && dice[1] == dice[2]) {
             return true;
         }
         return false;
     }
 
-    isSeven(dices) {
-        if(dices.includes(2, 2, 3)) {
+    isSeven(dice) {
+        if(dice.includes(2, 2, 3)) {
             return true;
         }
         return false;
     }
 
-    isSomethingElse(dices) {
+    isSomethingElse(dice) {
         var diceValues = [];
-        for (let i = 0; i < dices.length; i++) {
-            if(dices[i] == 1) {
+        for (let i = 0; i < dice.length; i++) {
+            if(dice[i] == 1) {
                 diceValues[i] = 100;
-            } else if(dices[i] == 6) {
+            } else if(dice[i] == 6) {
                 diceValues[i] = 60;
             } else {
-                diceValues[i] = dices[i];
+                diceValues[i] = dice[i];
             }
         }
         return diceValues;
@@ -421,24 +421,24 @@ export default class GameScreen extends Component {
       return (
         <View style={styles.mainContainer}>
             <LinearGradient colors={['#90D217', '#6dbe0d']} style={styles.diceContainer}>
-                <View style={styles.dices}>
-                    <Animatable.View ref="shakeDiceIndex0">
-                        <Dice 
-                            side={this.state.dices[0].side}
-                            dice={0}
+                <View style={styles.dice}>
+                    <Animatable.View ref="shakeDieIndex0">
+                        <Die 
+                            side={this.state.dice[0].side}
+                            die={0}
                             activePlayer={this.state.activePlayer} />
                     </Animatable.View>
-                    <Animatable.View ref="shakeDiceIndex1">
-                    <Dice 
-                        side={this.state.dices[1].side}
-                        dice={1}
-                        activePlayer={this.state.activePlayer} />
+                    <Animatable.View ref="shakeDieIndex1">
+                        <Die 
+                            side={this.state.dice[1].side}
+                            die={1}
+                            activePlayer={this.state.activePlayer} />
                     </Animatable.View>
-                    <Animatable.View ref="shakeDiceIndex2">
-                    <Dice 
-                        side={this.state.dices[2].side}
-                        dice={2}
-                        activePlayer={this.state.activePlayer} />
+                    <Animatable.View ref="shakeDieIndex2">
+                        <Die 
+                            side={this.state.dice[2].side}
+                            die={2}
+                            activePlayer={this.state.activePlayer} />
                     </Animatable.View>
                 </View>
             </LinearGradient>
@@ -539,7 +539,7 @@ const styles = StyleSheet.create({
         marginLeft: 15,
         marginBottom: 10
     },
-    dices: {
+    dice: {
         flex: 1,
         flexDirection: 'row',
         alignItems: 'center',

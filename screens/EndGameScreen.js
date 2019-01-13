@@ -3,7 +3,7 @@ import { Share, StyleSheet, Text, View, Image, ImageBackground } from 'react-nat
 import { Button } from 'react-native-elements';
 // Data
 import players from './../players';
-import dices from './../dices';
+import dice from '../dice';
 
 export default class EndGameScreen extends Component {
     static navigationOptions = {
@@ -24,7 +24,7 @@ export default class EndGameScreen extends Component {
 
         this.state = {
             players,
-            dices,
+            dice,
             winnerPlayer: this.props.navigation.getParam('winner', 0)
         }
     }
@@ -43,7 +43,7 @@ export default class EndGameScreen extends Component {
         // reset players
         let counter = 1;
         players.forEach(player => {
-            player.startDice = 0;
+            player.startDie = 0;
             player.turn = false;
             player.turnEnded = false;
             player.score = 0;
@@ -55,7 +55,7 @@ export default class EndGameScreen extends Component {
         });
 
         // reset dice
-        dices.forEach(die => {
+        dice.forEach(die => {
             die.number = 0;
             die.side = 0;
             die.checked = true;

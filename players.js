@@ -2,11 +2,11 @@ let players = [
     {
         name: 'Player 1',
         avatar: require('./assets/img/player-1.png'),
-        startDice: 0,
+        startDie: 0,
         turn: false,
         turnEnded: false,
         score: 0,
-        lastDiceNumbers: [
+        lastDieNumbers: [
             0,
             0,
             0,
@@ -22,7 +22,7 @@ let players = [
         turn: false,
         turnEnded: false,
         score: 0,
-        lastDiceNumbers: [
+        lastDieNumbers: [
             0,
             0,
             0,

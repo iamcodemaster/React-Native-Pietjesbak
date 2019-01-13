@@ -1,4 +1,4 @@
-let dices = [
+let dice = [
     {
         number: 0,
         side: 0,
@@ -16,4 +16,4 @@ let dices = [
     }
 ];
 
-  export default dices;
+  export default dice;
